@@ -9,12 +9,11 @@ if(!$con)
 else
 {
 	$email = $_POST["email"];
-	$title = $_POST["title"];
-	$description = $_POST["description"];
-	$location = $_POST["location"];
-	$cid = $_POST["cid"];
+	$catid= $_POST["catid"];
 
-	$sql = "INSERT INTO `found_post`(`post_id`, `description`, `email`, `cid`, `title`, `date`, `time`, `location`) VALUES ('','$description','$email','$cid','$title','date','time','$location')";
+
+	$sql = "INSERT INTO `subscription` (`email`, `cid`) VALUES ('$email', '$catid') ";
+	echo $sql;
 	$result = mysqli_query($con,$sql);
 	if($result)
 	{
