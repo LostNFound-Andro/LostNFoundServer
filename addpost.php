@@ -13,8 +13,10 @@ else
 	$description = $_POST["description"];
 	$location = $_POST["location"];
 	$cid = $_POST["cid"];
+	$time = $_POST["time"];
+	$date = $_POST["date"];
 
-	$sql = "INSERT INTO `found_post`(`post_id`, `description`, `email`, `cid`, `title`, `date`, `time`, `location`) VALUES ('','$description','$email','$cid','$title','date','time','$location')";
+	$sql = "INSERT INTO `found_post`(`post_id`, `description`, `email`, `cid`, `title`, `date`, `time`, `location`) VALUES ('','$description','$email','$cid','$title','$date','$time','$location')";
 	$result = mysqli_query($con,$sql);
 	if($result)
 	{
