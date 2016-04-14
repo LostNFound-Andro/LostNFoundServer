@@ -6,7 +6,7 @@ if($con ->connect_error){
 
 $email = $_POST["email"];
 $con -> query($sql);
-$res = $con -> query("SELECT found_post.title as title, found_post.description as post, found_post.cid as cid, found_post.email as email, found_post.time as time, found_post.date as date , found_post.location as location FROM `found_post`, `subscription` WHERE find_post.email='$email'");
+$res = $con -> query("SELECT found_post.title as title, found_post.description as post, category.CategoryName as cid, found_post.email as email, found_post.time as time, found_post.date as date , found_post.location as location FROM `found_post`, `category` WHERE found_post.email='$email' AND category.CategoryID = found_post.cid");
 $o = array();
 while($row = $res->fetch_assoc()){
     $o[] = $row;
