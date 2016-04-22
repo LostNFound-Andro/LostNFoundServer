@@ -9,20 +9,21 @@ if(!$con)
 else
 {
 	$email = $_POST["email"];
-	$catid= $_POST["catid"];
+	$postid= $_POST["post_id"];
+	$o = array();
 
 
-	$sql = "INSERT INTO `subscription` (`email`, `cid`) VALUES ('$email', '$catid') ";
-	echo $sql;
+	$sql = "INSERT INTO `report` (`email_id`, `post_id`) VALUES ('$email', '$postid') ";
 	$result = mysqli_query($con,$sql);
 	if($result)
 	{
-		echo "Data post success";
+		$o["status"]="success";
 	}
 	else
 	{
-		echo "Data post failed";
+		$o["status"] = "You've already reported this post!";
 	}
+print(json_encode($o));
 }
 }
 else

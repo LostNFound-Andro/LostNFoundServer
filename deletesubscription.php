@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=="POST")
 {
-$con = mysqli_connect("localhost","root","sel-lfa","maindb");
+$con = mysqli_connect("localhost","","","");
 if(!$con)
 {
 	echo "Failed to connect" . mysqli_connect_error();

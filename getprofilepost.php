@@ -1,12 +1,12 @@
 <?php
-$con = new mysqli("localhost", "root", "sel-lfa", "maindb");
+$con = new mysqli("localhost", "", "", "");
 if($con ->connect_error){
     die("error connectiong");
 }
 
 $email = $_POST["email"];
 $con -> query($sql);
-$res = $con -> query("SELECT found_post.title as title, found_post.description as post, category.CategoryName as cid, found_post.email as email, found_post.time as time, found_post.date as date , found_post.location as location FROM `found_post`, `category` WHERE found_post.email='$email' AND category.CategoryID = found_post.cid");
+$res = $con -> query("SELECT posts.post_type as post_type, posts.title as title, posts.description as description, category.CategoryName as cid, posts.post_id as post_id, posts.time as time, posts.date as date , posts.location as location FROM `posts`, `category` WHERE posts.email='$email' AND category.CategoryID = posts.cid and posts.resolve = 0 ORDER BY post_id DESC");
 $o = array();
 while($row = $res->fetch_assoc()){
     $o[] = $row;

@@ -1,5 +1,5 @@
 <?php
-$con = new mysqli("localhost", "root", "sel-lfa", "maindb");
+$con = new mysqli("localhost", "", "", "");
 if($con ->connect_error){
     die("error connectiong");
 }

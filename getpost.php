@@ -1,12 +1,21 @@
 <?php
-$con = new mysqli("localhost", "root", "sel-lfa", "maindb");
+$con = new mysqli("localhost", "", "", "");
 if($con ->connect_error){
     die("error connectiong");
 }
 
 $email = $_POST["email"];
+$type= $_POST["posttype"];
 $con -> query($sql);
-$res = $con -> query("SELECT found_post.title as title, found_post.description as post, category.CategoryName as cid, found_post.email as email, found_post.time as time, found_post.date as date , found_post.location as location FROM `found_post`, `subscription`, `category` WHERE subscription.email='$email' and  subscription.cid = found_post.cid and category.CategoryID = found_post.cid");
+if($type=="found")
+{
+$res = $con -> query("SELECT posts.post_id as post_id, posts.title as title, posts.description as description, category.CategoryName as cid, posts.email as email, posts.time as time, posts.date as date , posts.location as location, counttable.count as count FROM `posts`, `subscription`, `category`, (SELECT post_id,COUNT(*) as count FROM `report` GROUP BY `post_id`) as counttable WHERE subscription.email='$email' and  subscription.cid = posts.cid and category.CategoryID = posts.cid and posts.resolve = 0 and posts.email <> '$email' and posts.post_type=0 and counttable.post_id = posts.post_id");
+}
+else
+{
+$res = $con -> query("SELECT posts.post_id as post_id, posts.title as title, posts.description as description, category.CategoryName as cid, posts.email as email, posts.time as time, posts.date as date , posts.location as location, counttable.count as count FROM `posts`, `subscription`, `category`, (SELECT post_id,COUNT(*) as count FROM `report` GROUP BY `post_id`) as counttable WHERE subscription.email='$email' and  subscription.cid = posts.cid and category.CategoryID = posts.cid and posts.resolve = 0 and posts.email <> '$email' and posts.post_type=1 and counttable.post_id = posts.post_id");
+
+}
 $o = array();
 while($row = $res->fetch_assoc()){
     $o[] = $row;

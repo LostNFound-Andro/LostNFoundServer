@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=="POST")
 {
-$con = mysqli_connect("localhost","root","sel-lfa","maindb");
+$con = mysqli_connect("localhost","","","");
 if(!$con)
 {
 	echo "Failed to connect" . mysqli_connect_error();
@@ -15,8 +15,14 @@ else
 	$cid = $_POST["cid"];
 	$time = $_POST["time"];
 	$date = $_POST["date"];
-
-	$sql = "INSERT INTO `found_post`(`post_id`, `description`, `email`, `cid`, `title`, `date`, `time`, `location`) VALUES ('','$description','$email','$cid','$title','$date','$time','$location')";
+	if($_POST["postType"]=="found")
+	{
+	$sql = "INSERT INTO `posts`(`post_id`, `description`, `email`, `cid`, `title`, `date`, `time`, `location`, `post_type`) VALUES ('','$description','$email','$cid','$title','$date','$time','$location', 0)";
+	}
+	else
+	{
+	$sql = "INSERT INTO `posts`(`post_id`, `description`, `email`, `cid`, `title`, `date`, `time`, `location`, `post_type`) VALUES ('','$description','$email','$cid','$title','$date','$time','$location', 1)";
+	}
 	$result = mysqli_query($con,$sql);
 	if($result)
 	{
